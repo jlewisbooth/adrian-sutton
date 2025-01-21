@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../layouts/base.astro';
+import { Image } from 'astro:assets';
+import AboutBackgroundImage from '../images/about-background.png';
+
+let bgLoaded = false;
+---
+<BaseLayout staticHeader={true}>
+	<div class="w-full h-lvh fixed bg-black">
+		<Image src={AboutBackgroundImage} alt="" class="object-cover w-full h-full opacity-50" />
+	</div>
+</BaseLayout>

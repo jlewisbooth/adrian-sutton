@@ -1,0 +1,28 @@
+---
+import { Image } from "astro:assets";
+
+const { title, cover, compiledContent, arrange } = Astro.props;
+---
+
+<div class="w-full flex flex-row gap-6 p-4">
+  {
+    arrange === "left" && (
+      <div class="max-w-md flex-grow overflow-hidde">
+        <Image src={cover} alt="" />
+      </div>
+    )
+  }
+  <div class=`align-right flex flex-col flex-shrink text-white`>
+    <h2 class="font-bold">
+      {title}
+    </h2>
+    <Fragment set:html={compiledContent} />
+  </div>
+  {
+    arrange === "right" && (
+      <div class="max-w-lg flex-grow overflow-hidden">
+        <Image src={cover} alt="" />
+      </div>
+    )
+  }
+</div>

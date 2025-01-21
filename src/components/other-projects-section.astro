@@ -1,0 +1,28 @@
+---
+import { getCollection } from "astro:content";
+import ProjectCard from "../components/project.astro";
+
+const projects = await getCollection("projects");
+---
+
+<style>
+  .gradient {
+    background-size: 100% 100%;
+    background-position: 0px 0px;
+    background-image: linear-gradient(135deg, #283b42 12%, #6696a8 99%);
+  }
+</style>
+<div class="gradient flex flex-col justify-center items-center w-full py-10">
+  <div class="max-w-6xl p-10">
+    {
+      projects.map((project, index) => (
+        <ProjectCard
+          title={project.data.title}
+          cover={project.data.cover}
+          compiledContent={project.rendered?.html || ""}
+          arrange={index % 2 ? "right" : "left"}
+        />
+      ))
+    }
+  </div>
+</div>

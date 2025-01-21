@@ -1,0 +1,38 @@
+---
+import LogoAndName from "../components/logo-and-name.astro";
+import Navigation from './navigation.astro';
+
+const { staticHeader } = Astro.props;
+
+---
+<div>
+  <div class="w-full h-1/4 absolute" id="transition-capture">
+  </div>
+  <header id="header-banner" class=`z-50 flex flex-row w-full items-center place-content-between fixed top-0 drop-shadow-lg transition-colors duration-200 ${staticHeader ? "bg-secondary" : ""}`>
+    <LogoAndName />
+    <nav>
+      <Navigation />
+    </nav>
+    
+  </header>
+</div>
+<script define:vars={{staticHeader}}>
+  const transitionCaptureElement = document.getElementById("transition-capture");
+  const header = document.getElementById("header-banner");
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(header) {
+        if(entry.isIntersecting) {
+        header.style.backgroundColor = ""
+        } else {
+          header.style.backgroundColor = "#EDC579"
+        }
+      }
+    })
+  });
+
+  if(transitionCaptureElement && !staticHeader) {
+    observer.observe(transitionCaptureElement);
+  }
+</script>
