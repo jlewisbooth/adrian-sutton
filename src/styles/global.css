@@ -1,6 +1,6 @@
 @font-face {
   font-family: "HalisGR";
-  src: url("/fonts/HalisGRRegular.woff") format("woff");
+  src: url("fonts/HalisGRRegular.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -8,7 +8,7 @@
 
 @font-face {
   font-family: "HalisGR";
-  src: url("/fonts/HalisGRBold.woff") format("woff");
+  src: url("fonts/HalisGRBold.woff") format("woff");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -16,7 +16,7 @@
 
 @font-face {
   font-family: "HalisGR";
-  src: url("/fonts/HalisGRLight.woff") format("woff");
+  src: url("fonts/HalisGRLight.woff") format("woff");
   font-weight: lighter;
   font-style: normal;
   font-display: swap;
