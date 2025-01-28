@@ -7,12 +7,12 @@ const { title, cover, compiledContent, arrange } = Astro.props;
 <div class="w-full flex flex-row gap-6 p-4">
   {
     arrange === "left" && (
-      <div class="max-w-md flex-grow overflow-hidde">
+      <div class="max-w-md flex-grow w-1/2">
         <Image src={cover} alt="" />
       </div>
     )
   }
-  <div class=`align-right flex flex-col flex-shrink text-white`>
+  <div class=`align-right flex flex-col text-white w-1/2`>
     <h2 class="font-bold">
       {title}
     </h2>
@@ -20,7 +20,7 @@ const { title, cover, compiledContent, arrange } = Astro.props;
   </div>
   {
     arrange === "right" && (
-      <div class="max-w-lg flex-grow overflow-hidden">
+      <div class="max-w-lg flex-grow w-1/2">
         <Image src={cover} alt="" />
       </div>
     )
