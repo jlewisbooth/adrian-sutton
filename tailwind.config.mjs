@@ -10,6 +10,7 @@ export default {
         secondaryDark: "#DDAC47",
         contrastDark: "#421C1A",
         grey: "#575450",
+        primaryDark: "#0A4E65",
       },
     },
   },

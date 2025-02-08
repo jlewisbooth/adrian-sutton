@@ -1,0 +1,45 @@
+---
+import BaseLayout from "../../layouts/base.astro";
+import { getCollection } from "astro:content";
+const works = await getCollection("works");
+
+export async function getStaticPaths() {
+  const works = await getCollection("works");
+
+  return works.map((work) => ({
+    params: { workId: work.data.workNumber },
+  }));
+}
+
+const { workId } = Astro.params;
+const work = works.find((work) => work.data.workNumber === workId);
+---
+
+<style>
+  .gradient {
+    background-color: hsla(0, 0%, 52%, 1);
+    background-image: radial-gradient(
+        at 20% 74%,
+        hsla(30, 82%, 55%, 0.47) 0px,
+        transparent 50%
+      ),
+      radial-gradient(
+        at 21% 13%,
+        hsla(201, 47%, 34%, 0.52) 0px,
+        transparent 50%
+      ),
+      radial-gradient(
+        at 76% 72%,
+        hsla(17, 74%, 52%, 0.56) 0px,
+        transparent 50%
+      ),
+      radial-gradient(
+        at 79% 13%,
+        hsla(195, 26%, 52%, 0.35) 0px,
+        transparent 50%
+      );
+  }
+</style>
+<BaseLayout staticHeader={true}>
+  <div class="gradient h-lvh w-full"></div>
+</BaseLayout>

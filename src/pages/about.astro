@@ -5,6 +5,7 @@ import AboutBackgroundImage from "../images/about-background.png";
 import AboutSectionImage from "../images/about-section-potrait.png";
 import IconLink from "../components/icon-link.astro";
 import { Content as QandA } from "../q-and-a.md";
+import AboutPageMasonry from "../components/about-page-masonry.astro";
 
 // social images
 import TwitterLogo from "../images/twitter-logo.png";
@@ -100,11 +101,47 @@ import AppleLogo from "../images/apple-logo.png";
       </div>
     </div>
   </div>
-  <div class="w-full z-10 relative px-10 pb-10">
+  <div
+    class="w-full z-10 relative px-10 pb-10 flex flex-row gap-5 justify-center"
+  >
     <div
       class="w-2/5 max-w-xl bg-grey bg-opacity-50 text-white p-4 rounded-md drop-shadow-xl flex flex-col gap-2"
     >
+      <div class="w-full flex flex-row justify-between items-center gap-2">
+        <svg
+          width="43"
+          height="28"
+          viewBox="0 0 43 28"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M5.69329 2.21084L24.097 7.10668L4.70968 21.2292L5.69329 2.21084Z"
+            fill="#BC0F1E"></path>
+          <path
+            d="M27.7329 8.31412L39.4543 24.4976L10.5278 21.7791L27.7329 8.31412Z"
+            fill="#E1602B"></path>
+        </svg>
+
+        <h2 class="text-white font-bold">Q&A</h2>
+        <svg
+          width="32"
+          height="32"
+          viewBox="0 0 39 37"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M18 0L35.7535 24H0.246479L18 0Z" fill="#E1602B"></path>
+          <path d="M38 26L30.5 36.5L22 26H38Z" fill="#EEAB2B"></path>
+        </svg>
+      </div>
+      <hr
+        class="h-px border-t-0 bg-transparent bg-gradient-to-r from-transparent via-neutral-500 to-transparent opacity-50 dark:via-neutral-400"
+      />
       <QandA />
+    </div>
+    <div class="w-3/5 max-w-2xl">
+      <AboutPageMasonry />
     </div>
   </div>
 </BaseLayout>

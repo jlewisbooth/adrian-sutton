@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/base.astro";
+import ContactDetails from "../components/contact-details.astro";
 ---
 
 <style>
@@ -28,5 +29,7 @@ import BaseLayout from "../layouts/base.astro";
   }
 </style>
 <BaseLayout staticHeader={true}>
-  <div class="gradient h-lvh w-full"></div>
+  <div class="gradient h-lvh w-full pt-20">
+    <ContactDetails />
+  </div>
 </BaseLayout>
