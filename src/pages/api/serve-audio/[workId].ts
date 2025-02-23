@@ -35,20 +35,10 @@ export async function GET(context: {
   try {
     const fileBuffer = await readFile(filePath);
 
-    const audioContext = new AudioContext();
-    const audioBuffer = await audioContext.decodeAudioData(fileBuffer.buffer);
-
-    const metadata = {
-      duration: audioBuffer.duration,
-      sampleRate: audioBuffer.sampleRate,
-      numberOfChannels: audioBuffer.numberOfChannels,
-    };
-
     return new Response(fileBuffer, {
       headers: {
         "Content-Type": "audio/mpeg",
         "Content-Disposition": `inline; filename="${audio}.mp3"`,
-        "X-Audio-Metadata": JSON.stringify(metadata),
       },
     });
   } catch (error) {

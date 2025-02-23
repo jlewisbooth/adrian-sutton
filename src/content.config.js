@@ -43,10 +43,18 @@ export const collections = {
       z.object({
         workNumber: z.string(),
         title: z.string(),
+        shortDesc: z.string(),
+        length: z.string(),
+        forces: z.string(),
+        compositionYear: z.string(),
+        hire: z.optional(z.boolean()),
         audio: z.any(),
         pdf: z.any(),
         bannerImage: z.optional(image()),
         titleImage: z.optional(image()),
+        recording: z.optional(z.string()),
+        moreInfo: z.optional(z.boolean()),
+        buy: z.optional(z.string()),
       }),
   }),
 };
