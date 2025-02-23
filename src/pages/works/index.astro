@@ -5,6 +5,11 @@ const works = await getCollection("works");
 import WorkListItem from "../../components/work-list-item.astro";
 import MenuListItem from "../../components/menu-list-item.astro";
 import AudioPlayer from "../../components/audio-player.astro";
+import { Image } from "astro:assets";
+
+import BirdOne from "../../images/bird-1.png";
+import BirdTwo from "../../images/bird-2.png";
+import BirdThree from "../../images/bird-3.png";
 ---
 
 <style>
@@ -35,12 +40,21 @@ import AudioPlayer from "../../components/audio-player.astro";
 </style>
 <BaseLayout staticHeader={true}>
   <div
-    class="gradient w-full pt-20 flex flex-row gap-2 flex-grow px-4 pb-4 min-h-lvh"
+    class="gradient w-full pt-24 flex flex-row gap-2 flex-grow px-4 pb-4 min-h-lvh relative items-start"
   >
-    <div class="w-[300px] flex flex-col gap-3 bg-white rounded-lg">
+    <div
+      class="w-[300px] flex flex-col gap-3 bg-white/50 rounded-lg sticky top-24"
+    >
       <MenuListItem title="All" onClick={() => {}} />
       <MenuListItem title="Compositions" onClick={() => {}} />
       <MenuListItem title="Publications" onClick={() => {}} />
+      <div
+        class="flex flex-col gap-2 w-full justify-center items-center opacity-50 pt-10"
+      >
+        <Image src={BirdOne} alt="Bird 1" class="w-32 h-32 object-contain" />
+        <Image src={BirdTwo} alt="Bird 2" class="w-24 h-24 object-contain" />
+        <Image src={BirdThree} alt="Bird 3" class="w-20 h-20 object-contain" />
+      </div>
     </div>
     <div class="flex flex-col gap-4 flex-grow px-2">
       {works.map(async (work) => <WorkListItem work={work} />)}

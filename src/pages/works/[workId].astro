@@ -1,23 +1,30 @@
 ---
 import BaseLayout from "../../layouts/base.astro";
-import { getCollection } from "astro:content";
-const works = await getCollection("works");
+import { getCollection, render, getEntry } from "astro:content";
 import { Image } from "astro:assets";
+
+const works = await getCollection("works");
 
 export async function getStaticPaths() {
   const works = await getCollection("works");
 
-  return works.map((work) => ({
-    params: { workId: work.data.workNumber },
-  }));
+  return works.map((work) => ({ params: { workId: work.data.workNumber } }));
 }
 
 const { workId } = Astro.params;
+
 const work = works.find((work) => work.data.workNumber === workId);
+
+if (!work) {
+  throw new Error(`Work ${workId} not found`);
+}
+
+const { Content } = await render(work);
 
 const audioPath = work?.data.audio
   ? `${import.meta.env.BASE_URL}api/serve-audio/${encodeURIComponent(work.data.workNumber)}`
   : null;
+
 const pdfPath = work?.data.pdf
   ? work.data.pdf.replace("./", "../../works/") + "?url"
   : null;
@@ -50,50 +57,93 @@ const pdfPath = work?.data.pdf
   }
 </style>
 <BaseLayout staticHeader={true}>
-  {
-    work && (
-      <div class="gradient h-lvh w-full">
-        <h2 class="text-2xl font-bold">
-          {`${work.data.title} (${work.data.compositionYear})`}
-        </h2>
-        <p>{work.data.shortDesc}</p>
-        <p>{work.data.length}</p>
-        <p>{work.data.forces}</p>
-        {audioPath && <audio src={audioPath} controls />}
-        {work.data.bannerImage && (
-          <Image src={work.data.bannerImage} alt={work.data.title} />
-        )}
-
-        {work.data.titleImage && (
-          <Image src={work.data.titleImage} alt={work.data.title} />
-        )}
-        {pdfPath && (
+  <div
+    class="flex flex-row gap-4 pt-24 w-full px-4 gradient justify-center items-start"
+  >
+    <div class="flex flex-col gap-4 max-w-2xl pb-4">
+      <div
+        class="flex flex-row gap-2 relative h-48 justify-center items-center rounded-md overflow-hidden bg-black"
+      >
+        <div class="absolute top-0 left-0 w-full h-full z-0">
+          {
+            work.data.bannerImage && (
+              <Image
+                src={work.data.bannerImage}
+                alt={work.data.title}
+                class="w-full h-full object-cover opacity-40"
+              />
+            )
+          }
+        </div>
+        <div class="relative z-10 flex flex-row gap-4 p-4 items-center">
+          <div class="w-24 h-24 rounded-lg overflow-hidden">
+            {
+              work.data.titleImage && (
+                <Image src={work.data.titleImage} alt={work.data.title} />
+              )
+            }
+          </div>
+          <div class="flex flex-col gap-2">
+            <h2 class="text-3xl font-bold text-white">
+              {`${work.data.title} (${work.data.compositionYear})`}
+            </h2>
+            <div class="flex flex-row gap-2">
+              {
+                work.data.length && (
+                  <p class="text-md font-bold text-white">
+                    ({work.data.length})
+                  </p>
+                )
+              }
+              {
+                work.data.forces && (
+                  <p class="text-md text-white">{work.data.forces}</p>
+                )
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="p-4 bg-white/50 rounded-md overflow-hidden">
+        <Content />
+      </div>
+    </div>
+    <div class="flex flex-col gap-2 w-md sticky top-24">
+      {audioPath && <audio src={audioPath} controls />}
+      {
+        pdfPath && (
           <a
             href={`${import.meta.env.BASE_URL}api/serve-pdf/${encodeURIComponent(work.data.workNumber)}`}
             target="_blank"
           >
             Score Excerpt
           </a>
-        )}
-        {work.data.recording && (
+        )
+      }
+      {
+        work.data.recording && (
           <a href={work.data.recording} target="_blank">
             Recording
           </a>
-        )}
-        {work.data.buy && (
+        )
+      }
+      {
+        work.data.buy && (
           <a href={work.data.buy} target="_blank">
             Buy Score
           </a>
-        )}
-        {work.data.hire && (
+        )
+      }
+      {
+        work.data.hire && (
           <a
             href={`mailto:cordafonia@gmail.com?subject=Enquiry: ${work.data.workNumber} - ${work.data.title}`}
             target="_blank"
           >
             Contact for Hire
           </a>
-        )}
-      </div>
-    )
-  }
+        )
+      }
+    </div>
+  </div>
 </BaseLayout>

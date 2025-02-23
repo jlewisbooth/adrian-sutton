@@ -14,15 +14,13 @@ const pdfPath = work.data.pdf
 ---
 
 <div
-  class="bg-white rounded-lg flex flex-row gap-4 overflow-hidden drop-shadow-lg"
+  class="bg-white/70 rounded-lg flex flex-row gap-4 overflow-hidden drop-shadow-lg"
 >
   <div class="flex flex-col gap-2 p-3 flex-grow">
     <div class="flex flex-row gap-2 justify-between items-center">
-      <a href={`${import.meta.env.BASE_URL}works/${work.data.workNumber}`}>
-        <h2 class="text-xl font-bold hover:underline text-primary">
-          {`${work.data.title} (${work.data.compositionYear})`}
-        </h2>
-      </a>
+      <h2 class="text-xl font-bold hover:underline text-primary">
+        {`${work.data.title} (${work.data.compositionYear})`}
+      </h2>
       <div class="flex flex-row gap-2">
         {
           work.data.length && (
@@ -88,7 +86,7 @@ const pdfPath = work.data.pdf
   <div class="flex justify-center items-center p-2">
     {
       audioPath && (
-        <label class="btn btn-circle btn-secondary swap md:mx-2">
+        <label class="btn btn-circle btn-secondary swap md:mx-2 text-primary">
           <input
             type="checkbox"
             class="card-pay-buttons"
@@ -97,10 +95,10 @@ const pdfPath = work.data.pdf
             aria-label="Play and pause"
           />
           <div class="swap-off">
-            <PlayIcon />
+            <PlayIcon class="text-contrast" />
           </div>
-          <div class="swap-on">
-            <PauseIcon />
+          <div class="swap-on text-contrast">
+            <PauseIcon class="text-contrast" />
           </div>
         </label>
       )
