@@ -1,14 +1,17 @@
 ---
 import BaseLayout from "../../layouts/base.astro";
 import { getCollection } from "astro:content";
-import { Image } from "astro:assets";
 const works = await getCollection("works");
+import WorkListItem from "../../components/work-list-item.astro";
+import MenuListItem from "../../components/menu-list-item.astro";
+import AudioPlayer from "../../components/audio-player.astro";
 ---
 
 <style>
   .gradient {
     background-color: hsla(0, 0%, 52%, 1);
-    background-image: radial-gradient(
+    background-image:
+      radial-gradient(
         at 20% 74%,
         hsla(30, 82%, 55%, 0.47) 0px,
         transparent 50%
@@ -31,61 +34,17 @@ const works = await getCollection("works");
   }
 </style>
 <BaseLayout staticHeader={true}>
-  <div class="gradient w-full pt-20">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {
-        works.map(async (work) => {
-          const audioPath = work.data.audio
-            ? `${import.meta.env.BASE_URL}api/serve-audio/${encodeURIComponent(work.data.workNumber)}`
-            : null;
-          const pdfPath = work.data.pdf
-            ? work.data.pdf.replace("./", "../../works/") + "?url"
-            : null;
-
-          return (
-            <div class="bg-white rounded-lg p-4">
-              <h2 class="text-2xl font-bold">{`${work.data.title} (${work.data.compositionYear})`}</h2>
-              <p>{work.data.shortDesc}</p>
-              <p>{work.data.length}</p>
-              <p>{work.data.forces}</p>
-              {audioPath && <audio src={audioPath} controls />}
-              {work.data.bannerImage && (
-                <Image src={work.data.bannerImage} alt={work.data.title} />
-              )}
-
-              {work.data.titleImage && (
-                <Image src={work.data.titleImage} alt={work.data.title} />
-              )}
-              {pdfPath && (
-                <a
-                  href={`${import.meta.env.BASE_URL}api/serve-pdf/${encodeURIComponent(work.data.workNumber)}`}
-                  target="_blank"
-                >
-                  Score Excerpt
-                </a>
-              )}
-              {work.data.recording && (
-                <a href={work.data.recording} target="_blank">
-                  Recording
-                </a>
-              )}
-              {work.data.buy && (
-                <a href={work.data.buy} target="_blank">
-                  Buy Score
-                </a>
-              )}
-              {work.data.hire && (
-                <a
-                  href={`mailto:cordafonia@gmail.com?subject=Enquiry: ${work.data.workNumber} - ${work.data.title}`}
-                  target="_blank"
-                >
-                  Contact for Hire
-                </a>
-              )}
-            </div>
-          );
-        })
-      }
+  <div
+    class="gradient w-full pt-20 flex flex-row gap-2 flex-grow px-4 pb-4 min-h-lvh"
+  >
+    <div class="w-[300px] flex flex-col gap-3 bg-white rounded-lg">
+      <MenuListItem title="All" onClick={() => {}} />
+      <MenuListItem title="Compositions" onClick={() => {}} />
+      <MenuListItem title="Publications" onClick={() => {}} />
+    </div>
+    <div class="flex flex-col gap-4 flex-grow px-2">
+      {works.map(async (work) => <WorkListItem work={work} />)}
     </div>
   </div>
+  <AudioPlayer />
 </BaseLayout>

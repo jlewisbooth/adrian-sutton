@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+import daisyui from "daisyui";
+
 export default {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   theme: {
@@ -14,5 +16,21 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [daisyui],
+  daisyui: {
+    themes: [
+      {
+        custom: {
+          primary: "#2E6280",
+          secondary: "#EDC579",
+          accent: "#BC0F1E",
+          neutral: "#575450",
+          "base-100": "#FFFFFF",
+          "base-200": "#F1F5F9",
+          "base-300": "#E2E8F0",
+          "base-content": "#000000",
+        },
+      },
+    ],
+  },
 };

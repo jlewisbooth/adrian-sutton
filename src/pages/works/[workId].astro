@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/base.astro";
 import { getCollection } from "astro:content";
 const works = await getCollection("works");
+import { Image } from "astro:assets";
 
 export async function getStaticPaths() {
   const works = await getCollection("works");
@@ -13,12 +14,20 @@ export async function getStaticPaths() {
 
 const { workId } = Astro.params;
 const work = works.find((work) => work.data.workNumber === workId);
+
+const audioPath = work?.data.audio
+  ? `${import.meta.env.BASE_URL}api/serve-audio/${encodeURIComponent(work.data.workNumber)}`
+  : null;
+const pdfPath = work?.data.pdf
+  ? work.data.pdf.replace("./", "../../works/") + "?url"
+  : null;
 ---
 
 <style>
   .gradient {
     background-color: hsla(0, 0%, 52%, 1);
-    background-image: radial-gradient(
+    background-image:
+      radial-gradient(
         at 20% 74%,
         hsla(30, 82%, 55%, 0.47) 0px,
         transparent 50%
@@ -41,5 +50,50 @@ const work = works.find((work) => work.data.workNumber === workId);
   }
 </style>
 <BaseLayout staticHeader={true}>
-  <div class="gradient h-lvh w-full"></div>
+  {
+    work && (
+      <div class="gradient h-lvh w-full">
+        <h2 class="text-2xl font-bold">
+          {`${work.data.title} (${work.data.compositionYear})`}
+        </h2>
+        <p>{work.data.shortDesc}</p>
+        <p>{work.data.length}</p>
+        <p>{work.data.forces}</p>
+        {audioPath && <audio src={audioPath} controls />}
+        {work.data.bannerImage && (
+          <Image src={work.data.bannerImage} alt={work.data.title} />
+        )}
+
+        {work.data.titleImage && (
+          <Image src={work.data.titleImage} alt={work.data.title} />
+        )}
+        {pdfPath && (
+          <a
+            href={`${import.meta.env.BASE_URL}api/serve-pdf/${encodeURIComponent(work.data.workNumber)}`}
+            target="_blank"
+          >
+            Score Excerpt
+          </a>
+        )}
+        {work.data.recording && (
+          <a href={work.data.recording} target="_blank">
+            Recording
+          </a>
+        )}
+        {work.data.buy && (
+          <a href={work.data.buy} target="_blank">
+            Buy Score
+          </a>
+        )}
+        {work.data.hire && (
+          <a
+            href={`mailto:cordafonia@gmail.com?subject=Enquiry: ${work.data.workNumber} - ${work.data.title}`}
+            target="_blank"
+          >
+            Contact for Hire
+          </a>
+        )}
+      </div>
+    )
+  }
 </BaseLayout>

@@ -1,0 +1,109 @@
+---
+import { Image } from "astro:assets";
+import PlayIcon from "./playIcon.astro";
+import PauseIcon from "./pauseIcon.astro";
+import FallbackImage from "../images/fallback-title-image.jpeg";
+const { work } = Astro.props;
+
+const audioPath = work.data.audio
+  ? `${import.meta.env.BASE_URL}api/serve-audio/${encodeURIComponent(work.data.workNumber)}`
+  : null;
+const pdfPath = work.data.pdf
+  ? work.data.pdf.replace("./", "../../works/") + "?url"
+  : null;
+---
+
+<div
+  class="bg-white rounded-lg flex flex-row gap-4 overflow-hidden drop-shadow-lg"
+>
+  <div class="flex flex-col gap-2 p-3 flex-grow">
+    <div class="flex flex-row gap-2 justify-between items-center">
+      <a href={`${import.meta.env.BASE_URL}works/${work.data.workNumber}`}>
+        <h2 class="text-xl font-bold hover:underline text-primary">
+          {`${work.data.title} (${work.data.compositionYear})`}
+        </h2>
+      </a>
+      <div class="flex flex-row gap-2">
+        {
+          work.data.length && (
+            <p class="text-md font-bold">({work.data.length})</p>
+          )
+        }
+        {
+          work.data.forces && (
+            <p class="text-md font-bold">{work.data.forces}</p>
+          )
+        }
+      </div>
+    </div>
+    <p class="text-lg">{work.data.shortDesc}</p>
+    <div class="flex flex-row gap-2">
+      {
+        work.data.moreInfo && (
+          <a href={`${import.meta.env.BASE_URL}works/${work.data.workNumber}`}>
+            <button class="btn btn-primary btn-sm text-white">More Info</button>
+          </a>
+        )
+      }
+      {
+        pdfPath && (
+          <a
+            href={`${import.meta.env.BASE_URL}api/serve-pdf/${encodeURIComponent(work.data.workNumber)}`}
+            target="_blank"
+          >
+            <button class="btn btn-neutral btn-sm text-white">
+              Score Excerpt
+            </button>
+          </a>
+        )
+      }
+      {
+        work.data.recording && (
+          <a href={work.data.recording} target="_blank">
+            <button class="btn btn-neutral btn-sm text-white">Recording</button>
+          </a>
+        )
+      }
+      {
+        work.data.buy && (
+          <a href={work.data.buy} target="_blank">
+            <button class="btn btn-neutral btn-sm text-white">Buy Score</button>
+          </a>
+        )
+      }
+      {
+        work.data.hire && (
+          <a
+            href={`mailto:cordafonia@gmail.com?subject=Enquiry: ${work.data.workNumber} - ${work.data.title}`}
+            target="_blank"
+          >
+            <button class="btn btn-neutral btn-sm text-white">
+              Contact for Hire
+            </button>
+          </a>
+        )
+      }
+    </div>
+  </div>
+  <div class="flex justify-center items-center p-2">
+    {
+      audioPath && (
+        <label class="btn btn-circle btn-secondary swap md:mx-2">
+          <input
+            type="checkbox"
+            class="card-pay-buttons"
+            id={work.data.workNumber}
+            data-audio-url={audioPath}
+            aria-label="Play and pause"
+          />
+          <div class="swap-off">
+            <PlayIcon />
+          </div>
+          <div class="swap-on">
+            <PauseIcon />
+          </div>
+        </label>
+      )
+    }
+  </div>
+</div>
