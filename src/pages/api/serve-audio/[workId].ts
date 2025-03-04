@@ -48,7 +48,6 @@ export async function GET(context: {
 }
 
 export function getStaticPaths() {
-  console.log("works", works);
   return works.map((work) => ({
     params: { workId: work.data.workNumber },
     props: {

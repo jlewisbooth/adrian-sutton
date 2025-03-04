@@ -35,6 +35,33 @@ export const collections = {
         title: z.string(),
         cover: image(),
         coverAlt: z.string(),
+        tags: z.array(
+          z.enum([
+            "performances",
+            "portraits",
+            "album-artwork",
+            "production-stills",
+          ]),
+        ),
+      }),
+  }),
+  recordings: defineCollection({
+    loader: glob({ pattern: "**/*.md", base: "./src/recordings" }),
+    schema: ({ image }) =>
+      z.object({
+        title: z.string(),
+        url: z.string(),
+        description: z.string(),
+        banner: z.optional(image()),
+        cover: z.optional(image()),
+        records: z.optional(
+          z.array(
+            z.object({
+              title: z.string(),
+              url: z.optional(z.string()),
+            }),
+          ),
+        ),
       }),
   }),
   works: defineCollection({
@@ -46,6 +73,16 @@ export const collections = {
         shortDesc: z.string(),
         length: z.string(),
         forces: z.string(),
+        tags: z.array(
+          z.enum([
+            "ensemble",
+            "soloduo",
+            "choral",
+            "orchestral",
+            "theatre",
+            "publication",
+          ]),
+        ),
         compositionYear: z.string(),
         hire: z.optional(z.boolean()),
         audio: z.any(),
