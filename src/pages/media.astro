@@ -7,7 +7,7 @@ import MenuListItem from "../components/menu-list-item.astro";
 import BirdOne from "../images/bird-1.png";
 import BirdTwo from "../images/bird-2.png";
 import BirdThree from "../images/bird-3.png";
-
+import MediaImageCard from "../components/media-image-card.astro";
 const media = await getCollection("media");
 
 // Define filter categories
@@ -64,20 +64,95 @@ const filterCategories = [
     </div>
     <div class="w-full px-4 pb-4">
       <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-        {
-          media.map((item) => (
-            <div class="w-full p-2 bg-white/20 rounded-lg flex items-center justify-center">
-              <Image
-                class="max-h-[250px] max-w-full rounded-lg object-cover"
-                src={item.data.cover}
-                alt={item.data.coverAlt}
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-          ))
-        }
+        {media.map((item) => <MediaImageCard mediaItem={item} />)}
       </div>
     </div>
   </div>
 </BaseLayout>
+<script>
+  // Client-side filtering
+  let currentFilter = "all";
+
+  function filterWorks(filter = currentFilter) {
+    currentFilter = filter;
+    const workItems = document.querySelectorAll(".media-item");
+
+    workItems.forEach((item) => {
+      const tagsString = item.getAttribute("data-tags");
+      if (!tagsString) return;
+
+      const tags = JSON.parse(tagsString);
+      const htmlItem = item as HTMLElement;
+
+      const passesTagFilter =
+        filter === "all" ||
+        (Array.isArray(tags) ? tags.includes(filter) : tags === filter);
+
+      // Show item only if it passes both filters
+      htmlItem.classList.toggle("hidden", !passesTagFilter);
+    });
+
+    // Update active state of menu items
+    const menuItems = document.querySelectorAll(".menu-list-item");
+
+    menuItems.forEach((item) => {
+      const itemFilter = item.getAttribute("data-filter");
+
+      if (itemFilter === filter) {
+        item.classList.add("bg-white/80", "font-bold");
+        item.classList.remove("bg-white/30");
+      } else {
+        item.classList.remove("bg-white/80", "font-bold");
+        item.classList.add("bg-white/30");
+      }
+    });
+  }
+
+  // Set up click handlers for menu items
+  function setupMenuListeners() {
+    const menuItems = document.querySelectorAll(".menu-list-item");
+    menuItems.forEach((item) => {
+      item.addEventListener("click", (e) => {
+        e.preventDefault();
+        const filter = item.getAttribute("data-filter");
+        if (filter) {
+          const searchInput = document.getElementById(
+            "search-input",
+          ) as HTMLInputElement;
+          filterWorks(filter);
+        }
+      });
+    });
+  }
+
+  function setupDownloadListeners() {
+    const downloadButtons = document.querySelectorAll(".download-btn");
+
+    downloadButtons.forEach((button) => {
+      button.addEventListener("click", (e) => {
+        e.stopPropagation();
+
+        const imageSrc = button.getAttribute("data-image-src");
+        const imageName = button.getAttribute("data-image-name");
+
+        console.log(imageSrc, imageName);
+        if (imageSrc) {
+          // Create a temporary anchor element to trigger the download
+          const downloadLink = document.createElement("a");
+          downloadLink.href = imageSrc;
+          downloadLink.download = `${imageName || "image"}.jpg`;
+          document.body.appendChild(downloadLink);
+          downloadLink.click();
+          document.body.removeChild(downloadLink);
+        }
+      });
+    });
+  }
+
+  // Run filtering on page load
+  document.addEventListener("DOMContentLoaded", () => {
+    setupMenuListeners();
+    setupDownloadListeners();
+    filterWorks("all"); // Start with "all" filter
+  });
+</script>
