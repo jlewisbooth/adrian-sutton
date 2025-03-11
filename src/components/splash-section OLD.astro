@@ -5,6 +5,8 @@ import Rating from "fulldev-ui/components/Rating.astro";
 
 const date = "23 April 2025";
 const title = "VIOLIN CONCERTO";
+const description =
+  "We are hugely proud to announce that the Chandos release of Adrian's major orchestral works, including his recently-premiered Violin Concerto, has been nominated for the BBC Music Magazine's 2025 Premiere award! Recorded with the BBC Philharmonic Orchestra under Michael Seal, the release features the soloist Fenella Humphreys and in addition to the concerto includes Short Story, A Fist Full Of Fives, War Horse Suite and Five Theatre Miniatures";
 ---
 
 <style>
@@ -42,18 +44,33 @@ const title = "VIOLIN CONCERTO";
         {title}
       </h1>
       <p>
-        We are hugely proud to announce that the Chandos release of Adrian's major orchestral works, including his recently-premiered Violin Concerto, has been nominated for the BBC Music Magazine's 2025 Premiere award!
-      </p>
-      <p>
-        Recorded with the BBC Philharmonic Orchestra under Michael Seal, the release features the soloist Fenella Humphreys and in addition to the concerto includes Short Story, A Fist Full Of Fives, War Horse Suite and Five Theatre Miniatures
+        {description}
       </p>
     </div>
     <div class="flex flex-row gap-3 flex-wrap text-white">
       <div class="flex flex-col">
-        <a href="https://www.classical-music.com/reviews/orchestral/adrian-sutton-violin-concerto-orchestral-works">
-          <Rating size="lg" score={5} />
-          <small> BBC Music Magazine </small>
-        </a>
+        <Rating size="lg" score={5} />
+        <small> The Guardian </small>
+      </div>
+      <div class="flex flex-col">
+        <Rating size="lg" score={5} />
+        <small> The Guardian </small>
+      </div>
+      <div class="flex flex-col">
+        <Rating size="lg" score={5} />
+        <small> The Guardian </small>
+      </div>
+      <div class="flex flex-col">
+        <Rating size="lg" score={4} />
+        <small> The Guardian </small>
+      </div>
+      <div class="flex flex-col">
+        <Rating size="lg" score={4.5} />
+        <small> The Guardian </small>
+      </div>
+      <div class="flex flex-col">
+        <Rating size="lg" score={4} />
+        <small> The Guardian </small>
       </div>
     </div>
   </div>

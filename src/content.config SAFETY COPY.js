@@ -75,11 +75,12 @@ export const collections = {
         forces: z.string(),
         tags: z.array(
           z.enum([
-            "orchestral",
             "ensemble",
             "soloduo",
             "choral",
+            "orchestral",
             "theatre",
+            "publication",
           ]),
         ),
         compositionYear: z.string(),
