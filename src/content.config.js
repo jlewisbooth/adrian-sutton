@@ -73,14 +73,9 @@ export const collections = {
         shortDesc: z.string(),
         length: z.string(),
         forces: z.string(),
+        sectionSortOrder: z.number(),
         tags: z.array(
-          z.enum([
-            "orchestral",
-            "ensemble",
-            "soloduo",
-            "choral",
-            "theatre",
-          ]),
+          z.enum(["orchestral", "ensemble", "soloduo", "choral", "theatre"]),
         ),
         compositionYear: z.string(),
         hire: z.optional(z.boolean()),

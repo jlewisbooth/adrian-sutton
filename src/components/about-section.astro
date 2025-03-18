@@ -19,9 +19,13 @@ import News from "./news.astro";
     background-position: 0px 0px;
     background-image: linear-gradient(45deg, #787878 35%, #dedede 100%);
   }
+  .invert {
+    -webkit-filter: invert(1);
+    filter: invert(1);
+  }
 </style>
-<div class="min-h-lvh gradient drop-shadow-2xl relative z-10">
-  <div class="h-lvh flex items-end absolute">
+<div class="min-h-lvh gradient drop-shadow-2xl relative z-0">
+  <div class="h-lvh flex items-end absolute pb-10">
     <svg
       width="666"
       height="370"
@@ -398,28 +402,37 @@ import News from "./news.astro";
         alt=""
         class="object-cover drop-shadow-2xl"
       />
-      <p class="text-white text-lg">
-        Adrian is a British internationally-recognised orchestral, chamber and
-        theatre music composer.
-      </p>
-      <div class="flex flex-row gap-2 items-center">
-        <IconLink
-          width={56}
-          image={SpotifyLogo}
-          link="https://open.spotify.com/artist/2X8Vl5zqDsjdowwnFgp353?si=p2ZZkB0xS0uO74jFCELO6w&nd=1&dlsi=bfe9d91241aa4e14"
-        />
-        <IconLink
-          image={AppleLogo}
-          link="https://open.spotify.com/artist/2X8Vl5zqDsjdowwnFgp353?si=p2ZZkB0xS0uO74jFCELO6w&nd=1&dlsi=bfe9d91241aa4e14"
-        />
-        <IconLink
-          image={TwitterLogo}
-          link="https://open.spotify.com/artist/2X8Vl5zqDsjdowwnFgp353?si=p2ZZkB0xS0uO74jFCELO6w&nd=1&dlsi=bfe9d91241aa4e14"
-        />
-        <IconLink
-          image={InstagramLogo}
-          link="https://open.spotify.com/artist/2X8Vl5zqDsjdowwnFgp353?si=p2ZZkB0xS0uO74jFCELO6w&nd=1&dlsi=bfe9d91241aa4e14"
-        />
+      <div class="flex flex-col gap-2 bg-black/30 rounded-xl p-4">
+        <p class="text-white text-lg">
+          Adrian is a British internationally-recognised orchestral, chamber and
+          theatre music composer.
+        </p>
+        <div class="flex flex-row gap-2 items-center">
+          <IconLink
+            width={44}
+            image={SpotifyLogo}
+            className="invert"
+            link="https://open.spotify.com/artist/2X8Vl5zqDsjdowwnFgp353?si=p2ZZkB0xS0uO74jFCELO6w&nd=1&dlsi=bfe9d91241aa4e14"
+          />
+          <IconLink
+            width={40}
+            image={AppleLogo}
+            className="invert"
+            link="https://open.spotify.com/artist/2X8Vl5zqDsjdowwnFgp353?si=p2ZZkB0xS0uO74jFCELO6w&nd=1&dlsi=bfe9d91241aa4e14"
+          />
+          <IconLink
+            width={40}
+            image={TwitterLogo}
+            className="invert"
+            link="https://open.spotify.com/artist/2X8Vl5zqDsjdowwnFgp353?si=p2ZZkB0xS0uO74jFCELO6w&nd=1&dlsi=bfe9d91241aa4e14"
+          />
+          <IconLink
+            width={40}
+            image={InstagramLogo}
+            className="invert"
+            link="https://open.spotify.com/artist/2X8Vl5zqDsjdowwnFgp353?si=p2ZZkB0xS0uO74jFCELO6w&nd=1&dlsi=bfe9d91241aa4e14"
+          />
+        </div>
       </div>
     </div>
     <div class="flex-grow flex flex-col gap-4 max-w-4xl">

@@ -3,10 +3,6 @@
 ## Git Installation
 
 ```bash
-git clone https://github.com/jlewisbooth/adrian-sutton.git
-
-OR
-
 git clone git@github.com:jlewisbooth/adrian-sutton.git
 
 cd adriansutton

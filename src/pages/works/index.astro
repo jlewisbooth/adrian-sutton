@@ -12,6 +12,10 @@ import BirdThree from "../../images/bird-3.png";
 
 const allWorks = await getCollection("works");
 
+const sortedWorks = allWorks.sort((a, b) => {
+  return a.data.sectionSortOrder - b.data.sectionSortOrder;
+});
+
 // Define filter categories
 const filterCategories = [
   { title: "All", filter: "all" },
@@ -54,7 +58,7 @@ const filterCategories = [
     class="gradient w-full pt-24 flex flex-row gap-2 flex-grow px-4 pb-4 min-h-lvh relative items-start"
   >
     <div
-      class="w-[300px] flex flex-col gap-3 bg-white/50 rounded-lg sticky top-24 p-2 drop-shadow-2xl"
+      class="w-[230px] 2xl:w-[250px] min-w-[210px] 2xl:min-w-[250px] flex flex-col gap-3 bg-white/50 rounded-lg sticky top-24 p-2 drop-shadow-2xl"
     >
       {
         filterCategories.map((category) => (
@@ -69,7 +73,7 @@ const filterCategories = [
         <Image src={BirdThree} alt="Bird 3" class="w-20 h-20 object-contain" />
       </div>
     </div>
-    <div class="flex flex-col gap-4 flex-grow px-2">
+    <div class="flex flex-col gap-4 flex-grow pl-2">
       <div class="join w-full sticky top-24 z-10">
         <div class="input join-item flex items-center w-full drop-shadow-lg">
           <svg
@@ -94,17 +98,19 @@ const filterCategories = [
           />
         </div>
       </div>
-      {
-        allWorks.map((work) => (
-          <div
-            class="work-item hidden"
-            data-tags={JSON.stringify(work.data.tags)}
-            data-search={work.data.title}
-          >
-            <WorkListItem work={work} />
-          </div>
-        ))
-      }
+      <div class="grid grid-cols-1 lg:grid-cols-2 3xl:grid-cols-3 gap-3">
+        {
+          sortedWorks.map((work) => (
+            <div
+              class="work-item hidden col-span-1"
+              data-tags={JSON.stringify(work.data.tags)}
+              data-search={work.data.title}
+            >
+              <WorkListItem work={work} />
+            </div>
+          ))
+        }
+      </div>
     </div>
   </div>
   <AudioPlayer />
