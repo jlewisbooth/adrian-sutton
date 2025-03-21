@@ -14,6 +14,12 @@ const { staticHeader } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>Adrian Sutton</title>
     <base href={import.meta.env.BASE_URL} />
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/player.style/tailwind-audio/+esm"
+    ></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/media-chrome@4/+esm"
+    ></script>
   </head>
   <body>
     <Header staticHeader={staticHeader} />

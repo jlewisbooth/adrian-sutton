@@ -1,9 +1,12 @@
 ---
 import BaseLayout from "../../layouts/base.astro";
-import { getCollection, render, getEntry } from "astro:content";
+import { getCollection, render } from "astro:content";
 import { Image } from "astro:assets";
 
 const works = await getCollection("works");
+
+import FallbackBanner from "../../images/banner-fallback.png";
+import FallbackCover from "../../images/fallback-title-image.jpeg";
 
 export async function getStaticPaths() {
   const works = await getCollection("works");
@@ -66,9 +69,15 @@ const pdfPath = work?.data.pdf
       >
         <div class="absolute top-0 left-0 w-full h-full z-0">
           {
-            work.data.bannerImage && (
+            work.data.bannerImage ? (
               <Image
                 src={work.data.bannerImage}
+                alt={work.data.title}
+                class="w-full h-full object-cover opacity-40"
+              />
+            ) : (
+              <Image
+                src={FallbackBanner}
                 alt={work.data.title}
                 class="w-full h-full object-cover opacity-40"
               />
@@ -76,10 +85,18 @@ const pdfPath = work?.data.pdf
           }
         </div>
         <div class="relative z-10 flex flex-row gap-4 p-4 items-center">
-          <div class="w-24 h-24 rounded-lg overflow-hidden">
+          <div
+            class="w-24 h-24 rounded-lg overflow-hidden flex items-center justify-center"
+          >
             {
-              work.data.titleImage && (
+              work.data.titleImage ? (
                 <Image src={work.data.titleImage} alt={work.data.title} />
+              ) : (
+                <Image
+                  src={FallbackCover}
+                  alt={work.data.title}
+                  class="w-full h-full object-cover"
+                />
               )
             }
           </div>
@@ -87,31 +104,97 @@ const pdfPath = work?.data.pdf
             <h2 class="text-3xl font-bold text-white">
               {`${work.data.title} (${work.data.compositionYear})`}
             </h2>
-            <div class="flex flex-row gap-2">
-              {
-                work.data.length && (
-                  <p class="text-md font-bold text-white">
-                    ({work.data.length})
-                  </p>
-                )
-              }
-              {
-                work.data.forces && (
-                  <p class="text-md text-white">{work.data.forces}</p>
-                )
-              }
-            </div>
           </div>
         </div>
       </div>
       <div
         class="p-4 bg-white/50 rounded-md overflow-hidden flex flex-col gap-4"
+        id="content-wrapper"
       >
         <Content />
       </div>
     </div>
-    <div class="flex flex-col gap-4 w-md sticky top-24">
-      {audioPath && <audio src={audioPath} controls />}
+    <div class="flex flex-col gap-4 w-md sticky top-24 max-w-72">
+      <div
+        class="p-2 bg-white/50 rounded-md overflow-hidden flex flex-col gap-4"
+      >
+        <p class="text-md italic text-center">{work.data.shortDesc}</p>
+        {
+          (work.data.length || work.data.forces) && (
+            <hr class="h-px border-t-0 bg-transparent bg-gradient-to-r from-transparent via-white to-transparent opacity-60" />
+          )
+        }
+        {
+          work.data.length && (
+            <div class="flex flex-row gap-2 items-center">
+              <div class="w-5 h-5">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 45 58"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M9.54313 8.82768L27.4843 11.6434L10.9551 26.9334L9.54313 8.82768Z"
+                    fill="#EC922D"
+                  />
+                  <path
+                    d="M36.5406 7.00815L22.1807 45.7603L8.19851 37.0857L36.5406 7.00815Z"
+                    fill="#421C1A"
+                  />
+                </svg>
+              </div>
+              <p class="text-sm font-bold text-nowrap">{work.data.length}</p>
+            </div>
+          )
+        }
+        {
+          work.data.forces && (
+            <div class="flex flex-row gap-2 items-start">
+              <div class="w-5 h-5  pt-[4px]">
+                <svg
+                  width="18"
+                  height="15"
+                  viewBox="0 0 39 42"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    opacity="0.8"
+                    d="M11.8786 3.40295L24 41.403L0 24.3517L11.8786 3.40295Z"
+                    fill="#BC0F1E"
+                  />
+                  <path
+                    opacity="0.8"
+                    d="M16.5864 9.99512L33.5858 9.5042L21.9961 26.1183L16.5864 9.99512Z"
+                    fill="#575450"
+                  />
+                </svg>
+              </div>
+              <p class="text-sm font-bold">{work.data.forces}</p>
+            </div>
+          )
+        }
+      </div>
+      {
+        audioPath && (
+          <media-controller
+            audio
+            class="@container block w-full shadow-xl shadow-black/5 rounded-md overflow-hidden"
+            style="--media-primary-color: #2E6280; --media-secondary-color: #EDC579; --media-accent-color: #BC0F1E; --media-control-hover-background: #DDAC47; --media-tooltip-display: none;"
+          >
+            <audio src={audioPath} slot="media" playsinline />
+            <media-control-bar class="w-full">
+              <media-play-button />
+              <media-time-display />
+              <media-time-range />
+              <media-playback-rate-button />
+              <media-mute-button />
+            </media-control-bar>
+          </media-controller>
+        )
+      }
       {
         pdfPath && (
           <a
@@ -159,7 +242,29 @@ const pdfPath = work?.data.pdf
       {
         work.data.recording && (
           <a href={work.data.recording} target="_blank">
-            Recording
+            <button class="btn bg-white text-black border-[#e5e5e5] w-full">
+              <svg
+                fill="#000000"
+                width="15px"
+                height="15px"
+                viewBox="0 0 31.216 31.216"
+                xml:space="preserve"
+              >
+                <g>
+                  <path
+                    d="M30.854,0L11.057,2.837v18.034c-1.089-0.596-2.405-0.94-3.838-0.94c-3.845,0-6.856,2.479-6.856,5.642
+		c0,3.164,3.012,5.644,6.856,5.644c3.844,0,6.856-2.479,6.856-5.644c0-0.104-0.019-13.353-0.019-13.353l13.797-2.213v8.487
+		c-1.1-0.613-2.434-0.971-3.891-0.971c-3.844,0-6.855,2.479-6.855,5.642c0,3.165,3.012,5.644,6.855,5.644
+		c3.686,0,6.598-2.279,6.832-5.255C30.829,23.428,30.854,0,30.854,0z M7.218,28.215c-2.13,0-3.856-1.184-3.856-2.643
+		s1.727-2.643,3.856-2.643c2.066,0,3.74,1.116,3.838,2.516v0.127c0,0.025,0.006,0.049,0.008,0.074
+		C11.004,27.07,9.311,28.215,7.218,28.215z M14.057,9.18V5.438L27.854,3.46v3.507L14.057,9.18z M23.964,25.809
+		c-2.129,0-3.856-1.184-3.856-2.645c0-1.459,1.728-2.641,3.856-2.641s3.854,1.182,3.854,2.641
+		C27.818,24.626,26.093,25.809,23.964,25.809z"
+                  />
+                </g>
+              </svg>
+              Recording
+            </button>
           </a>
         )
       }
@@ -221,3 +326,9 @@ const pdfPath = work?.data.pdf
     </div>
   </div>
 </BaseLayout>
+<script>
+  const wrapper = document.getElementById("content-wrapper");
+  if (wrapper && wrapper.innerHTML.trim() === "") {
+    wrapper.style.display = "none";
+  }
+</script>

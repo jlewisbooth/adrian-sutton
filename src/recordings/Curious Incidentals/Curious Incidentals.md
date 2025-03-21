@@ -1,17 +1,15 @@
 ---
 title: "Curious Incidentals"
 url: "curious-incidentals"
-description: "Curious Incidentals"
 cover: "Curious Incidentals.jpg"
-records:
-  - { title: "Preface"}
-  - { title: "Astroboy"}
-  - { title: "Polperro Beach"}
-  - { title: "Station"}
-  - { title: "Sleepwalking"}
-  - { title: "Exam"}
-  - { title: "Maths Appendix"}
+audioUrl: "https://embed.music.apple.com/us/album/curious-incidentals-from-the-national-theatre/1530289314"
+sectionSortOrder: 4
+metadata:
+  - { title: "Label", description: "UNKNOWN" }
+  - { title: "Release Date", description: "19/08/2025" }
+  - { title: "Producer", description: "Adrian Sutton" }
 ---
 
-<iframe allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" frameborder="0" height="450" style="width:100%;max-width:660px;overflow:hidden;border-radius:10px;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/album/curious-incidentals-from-the-national-theatre/1530289314"></iframe>
+This is where content is to be placed!
 
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.

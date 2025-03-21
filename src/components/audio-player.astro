@@ -7,7 +7,7 @@ import AudioMutedIcon from "./audioMutedIcon.astro";
 
 <div
   id="audio-player-container"
-  class="bg-secondary fixed bottom-0 z-20 hidden h-16 w-full items-center px-5 opacity-0 transition-opacity duration-500"
+  class="bg-secondary fixed bottom-0 z-20 hidden h-16 w-full items-center px-5 opacity-0 transition-opacity duration-500 text-primary shadow-[0_-8px_15px_-3px_rgba(0,0,0,0.15)]"
 >
   <audio src="" preload="metadata"></audio>
   <span
@@ -58,7 +58,7 @@ import AudioMutedIcon from "./audioMutedIcon.astro";
   const currentTimeContainer = document.getElementById("current-time");
   const seekSlider = document.getElementById("seek-slider");
 
-  const calculateTime = (secs) => {
+  const calculateTime = (secs: any) => {
     const hours = Math.floor(secs / 3600);
     const minutes = Math.floor((secs % 3600) / 60);
     const seconds = Math.floor(secs % 60);

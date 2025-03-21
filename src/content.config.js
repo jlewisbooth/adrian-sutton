@@ -51,14 +51,14 @@ export const collections = {
       z.object({
         title: z.string(),
         url: z.string(),
-        description: z.string(),
-        banner: z.optional(image()),
+        audioUrl: z.string(),
         cover: z.optional(image()),
-        records: z.optional(
+        sectionSortOrder: z.number(),
+        metadata: z.optional(
           z.array(
             z.object({
               title: z.string(),
-              url: z.optional(z.string()),
+              description: z.string(),
             }),
           ),
         ),

@@ -4,6 +4,10 @@ import { getCollection } from "astro:content";
 import RecordingListItem from "../../components/recording-list-item.astro";
 
 const recordings = await getCollection("recordings");
+
+const sortedRecordings = recordings.sort(
+  (a, b) => a.data.sectionSortOrder - b.data.sectionSortOrder,
+);
 ---
 
 <style>
@@ -38,7 +42,7 @@ const recordings = await getCollection("recordings");
   >
     <div class="grid grid-cols-2 md:grid-cols-3 gap-4 px-10 pt-6 mx-auto pb-4">
       {
-        recordings.map((recording) => (
+        sortedRecordings.map((recording) => (
           <RecordingListItem recording={recording} />
         ))
       }

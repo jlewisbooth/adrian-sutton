@@ -1,8 +1,6 @@
 ---
 import BaseLayout from "../../layouts/base.astro";
 import { getCollection, render } from "astro:content";
-import PlayIcon from "../../components/smallPlayIcon.astro";
-import PauseIcon from "../../components/smallPauseIcon.astro";
 import AudioPlayer from "../../components/audio-player.astro";
 import { Image } from "astro:assets";
 
@@ -30,15 +28,6 @@ if (!recording) {
 }
 
 const { Content } = await render(recording);
-
-const records = recording.data.records?.map((record) => {
-  return {
-    title: record.title,
-    url: record.url
-      ? `${import.meta.env.BASE_URL}api/serve-recording/${encodeURIComponent(record.url)}`
-      : null,
-  };
-});
 ---
 
 <style>
@@ -71,83 +60,69 @@ const records = recording.data.records?.map((record) => {
   <div
     class="flex flex-row gap-4 pt-24 w-full px-4 gradient justify-center items-start min-h-[calc(100vh-50px)]"
   >
-    <div class="flex flex-col gap-4 max-w-2xl pb-4 sticky top-24">
-      <div class="container mx-auto bg-black/50 rounded-md p-4 min-w-[230px]">
-        <h2 class="text-2xl font-bold text-white">Track listing</h2>
-        <div class="divider divider-secondary"></div>
-        <div class="flex flex-col gap-2">
-          {
-            records &&
-              records.map((record, index) => (
-                <div class="flex flex-row gap-3 justify-between items-center">
-                  <h6 class="text-white">{`${index + 1}. ${record.title}`}</h6>
-                  {record.url && (
-                    <label class="btn btn-circle btn-sm btn-secondary swap text-primary drop-shadow-md">
-                      <input
-                        type="checkbox"
-                        class="card-pay-buttons"
-                        id={record.url}
-                        data-audio-url={record.url}
-                        aria-label="Play and pause"
-                      />
-                      <div class="swap-off">
-                        <PlayIcon class="text-contrast" />
-                      </div>
-                      <div class="swap-on text-contrast">
-                        <PauseIcon class="text-contrast" />
-                      </div>
-                    </label>
-                  )}
-                </div>
-              ))
-          }
-        </div>
-      </div>
-    </div>
-    <div class="flex flex-col gap-2 max-w-[600px] flex-grow pb-4">
+    <div class="flex flex-col gap-2 max-w-[650px] flex-grow pb-4">
       <div
-        class="flex flex-row gap-2 relative h-48 justify-center items-center rounded-md overflow-hidden bg-black w-full"
+        class="p-4 bg-white/50 rounded-md overflow-hidden w-full flex flex-col gap-3"
       >
-        <div class="absolute top-0 left-0 w-full h-full z-0">
-          {
-            recording.data.banner ? (
-              <Image
-                src={recording.data.banner}
-                alt={recording.data.title}
-                class="w-full h-full object-cover opacity-40"
-              />
-            ) : (
-              <Image
-                src={FallbackBanner}
-                alt={recording.data.title}
-                class="w-full h-full object-cover opacity-40"
-              />
-            )
-          }
-        </div>
-        <div class="relative z-10 flex flex-row gap-4 p-4 items-center">
-          <div class="w-24 h-24 rounded-lg overflow-hidden">
-            {
-              recording.data.cover ? (
-                <Image src={recording.data.cover} alt={recording.data.title} />
-              ) : (
-                <Image src={FallbackCover} alt={recording.data.title} />
-              )
-            }
-          </div>
-          <div class="flex flex-col gap-2">
-            <h2 class="text-3xl font-bold text-white">
-              {`${recording.data.title}`}
-            </h2>
-          </div>
-        </div>
+        <iframe
+          allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
+          frameborder="0"
+          height="450"
+          style="width:100%;max-width:660px;overflow:hidden;border-radius:10px;"
+          sandbox="allow-forms allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
+          src={recording.data.audioUrl}></iframe>
       </div>
       <div
         class="p-4 bg-white/50 rounded-md overflow-hidden w-full flex flex-col gap-3"
       >
+        <h2 class="text-2xl font-bold text-center">{recording.data.title}</h2>
         <Content />
       </div>
     </div>
+    <div class="flex flex-col gap-4 max-w-3xl pb-4 sticky top-24">
+      <div
+        class="container mx-auto bg-black rounded-md p-4 min-w-[300px] max-w-[300px] overflow-hidden relative flex flex-col justify-center items-center"
+      >
+        <div class="absolute top-0 left-0 w-full h-full z-0">
+          <Image
+            src={FallbackBanner}
+            alt={recording.data.title}
+            class="w-full h-full object-cover opacity-40"
+          />
+        </div>
+        <div
+          class="w-[160px] h-[160px] min-w-[160px] min-h-[160px] z-10 relative"
+        >
+          {
+            recording.data.cover ? (
+              <Image
+                src={recording.data.cover}
+                alt={recording.data.title}
+                class="w-full h-full object-fit rounded-lg overflow-hidden"
+              />
+            ) : (
+              <Image
+                src={FallbackCover}
+                alt={recording.data.title}
+                class="w-full h-full object-fit rounded-lg overflow-hidden"
+              />
+            )
+          }
+        </div>
+        <div class="flex flex-col gap-2 z-10 relative pt-4 text-white w-full">
+          {
+            recording.data.metadata?.map((metadata) => (
+              <>
+                <div class="flex flex-row gap-2 items-end w-full justify-between gap-2">
+                  <span class="text-sm">{metadata.title}</span>
+                  <span class="font-bold">{metadata.description}</span>
+                </div>
+                <hr class="h-px border-t-0 bg-transparent bg-gradient-to-r from-transparent via-neutral-500 to-transparent opacity-50 dark:via-neutral-400" />
+              </>
+            ))
+          }
+        </div>
+      </div>
+    </div>
   </div>
-  <AudioPlayer />
 </BaseLayout>
