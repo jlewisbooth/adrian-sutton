@@ -100,9 +100,15 @@ const pdfPath = work?.data.pdf
               )
             }
           </div>
+          <!--
           <div class="flex flex-col gap-2">
             <h2 class="text-3xl font-bold text-white">
               {`${work.data.title} (${work.data.compositionYear})`}
+            </h2>
+          </div> -->
+          <div class="flex flex-col gap-2">
+            <h2 class="text-3xl font-bold text-white">
+              {`${work.data.title}`}
             </h2>
           </div>
         </div>
@@ -145,7 +151,57 @@ const pdfPath = work?.data.pdf
                   />
                 </svg>
               </div>
-              <p class="text-sm font-bold text-nowrap">{work.data.length}</p>
+              <p class="text-sm text-nowrap"><b>Duration: </b> {work.data.length}</p>
+            </div>
+          )
+        }
+        {
+          work.data.workNumber && (
+            <div class="flex flex-row gap-2 items-center">
+              <div class="w-5 h-5">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 45 58"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M9.54313 8.82768L27.4843 11.6434L10.9551 26.9334L9.54313 8.82768Z"
+                    fill="#EC922D"
+                  />
+                  <path
+                    d="M36.5406 7.00815L22.1807 45.7603L8.19851 37.0857L36.5406 7.00815Z"
+                    fill="#421C1A"
+                  />
+                </svg>
+              </div>
+              <p class="text-sm text-nowrap"><b>Work no.: </b> {work.data.workNumber}</p>
+            </div>
+          )
+        }
+        {
+          work.data.compositionYear && (
+            <div class="flex flex-row gap-2 items-center">
+              <div class="w-5 h-5">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 45 58"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M9.54313 8.82768L27.4843 11.6434L10.9551 26.9334L9.54313 8.82768Z"
+                    fill="#EC922D"
+                  />
+                  <path
+                    d="M36.5406 7.00815L22.1807 45.7603L8.19851 37.0857L36.5406 7.00815Z"
+                    fill="#421C1A"
+                  />
+                </svg>
+              </div>
+              <p class="text-sm text-nowrap"><b>Year of composition: </b> {work.data.compositionYear}</p>
             </div>
           )
         }
@@ -172,7 +228,7 @@ const pdfPath = work?.data.pdf
                   />
                 </svg>
               </div>
-              <p class="text-sm font-bold">{work.data.forces}</p>
+              <p class="text-sm"><b>Forces: </b>{work.data.forces}</p>
             </div>
           )
         }
@@ -234,7 +290,7 @@ const pdfPath = work?.data.pdf
 	c14.282-5.016,28.927-3.234,38.267,6.106C293.442,256.725,294.97,291.67,276.192,310.449z"
                 />
               </svg>
-              Score Excerpt
+              Score excerpt
             </button>
           </a>
         )
@@ -285,7 +341,7 @@ const pdfPath = work?.data.pdf
                   stroke-width="1.2"
                 />
               </svg>
-              Buy Score
+              Buy printed score
             </button>
           </a>
         )
@@ -318,7 +374,7 @@ const pdfPath = work?.data.pdf
                   stroke-linecap="round"
                 />
               </svg>
-              Contact for Hire
+              Contact us to hire
             </button>
           </a>
         )

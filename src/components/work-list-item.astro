@@ -20,25 +20,25 @@ const pdfPath = work.data.pdf
     <div class="flex flex-col gap-1 p-3 flex-grow">
       <div class="flex flex-col gap-1 justify-start items-start w-full">
         <h2
-          class="text-xl font-bold text-[#2e6280] drop-shadow-[0_1px_0px_var(--tw-shadow-color)] shadow-secondaryDark"
+          class="text-lg font-bold text-[#2e6280] drop-shadow-[0_1px_0px_var(--tw-shadow-color)] shadow-secondaryDark"
         >
           {`${work.data.title} (${work.data.compositionYear})`}
         </h2>
         <div class="flex flex-row gap-2">
           {
             work.data.length && (
-              <p class="text-md font-bold text-nowrap">({work.data.length})</p>
+              <p class="text-sm font-bold text-nowrap">({work.data.length})</p>
             )
           }
           {
             work.data.forces && (
-              <p class="text-md font-bold">{work.data.forces}</p>
+              <p class="text-sm">{work.data.forces}</p>
             )
           }
         </div>
       </div>
       <div class="flex-grow">
-        <p class="text-md pb-1">{work.data.shortDesc}</p>
+        <p class="text-sm pb-1">{work.data.shortDesc}</p>
       </div>
     </div>
     <div class="flex justify-center items-center p-2">
