@@ -13,26 +13,30 @@ const projects = await getCollection("projects");
   }
 </style>
 <div
-  class="gradient flex flex-col justify-center items-center w-full py-10 rounded-t-[4rem] -mt-12 relative z-10 ring-2 ring-contrastDark/60 shadow-[0_-8px_15px_-3px_rgba(0,0,0,0.15)]"
+  class="gradient rounded-t-[4rem] -mt-[3.5rem] relative z-10 shadow-[0_-8px_15px_-3px_rgba(0,0,0,0.15)] p-[1px]"
 >
-  <div class="w-full">
-    <p class="text-white/70 text-3xl font-bold text-center mb-2">
-      PROJECT HIGHLIGHTS
-    </p>
-    <hr
-      class="h-px border-t-0 bg-transparent bg-gradient-to-r from-transparent via-neutral-500 to-transparent opacity-50 dark:via-neutral-400"
-    />
-  </div>
-  <div class="max-w-6xl px-10 py-7">
-    {
-      projects.map((project, index) => (
-        <ProjectCard
-          title={project.data.title}
-          cover={project.data.cover}
-          compiledContent={project.rendered?.html || ""}
-          arrange={index % 2 ? "right" : "left"}
-        />
-      ))
-    }
+  <div
+    class="flex flex-col justify-center items-center w-full py-10 border border-white/30 rounded-t-[4rem]"
+  >
+    <div class="w-full">
+      <p class="text-white/70 text-3xl font-bold text-center mb-2">
+        PROJECT HIGHLIGHTS
+      </p>
+      <hr
+        class="h-px border-t-0 bg-transparent bg-gradient-to-r from-transparent via-neutral-500 to-transparent opacity-50 dark:via-neutral-400"
+      />
+    </div>
+    <div class="max-w-6xl px-10 py-7">
+      {
+        projects.map((project, index) => (
+          <ProjectCard
+            title={project.data.title}
+            cover={project.data.cover}
+            compiledContent={project.rendered?.html || ""}
+            arrange={index % 2 ? "right" : "left"}
+          />
+        ))
+      }
+    </div>
   </div>
 </div>

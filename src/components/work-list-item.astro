@@ -1,15 +1,11 @@
 ---
 import PlayIcon from "./playIcon.astro";
 import PauseIcon from "./pauseIcon.astro";
-import CheckeredImage from "../images/fallback-title-image.png";
-import { Image } from "astro:assets";
+
 const { work } = Astro.props;
 
 const audioPath = work.data.audio
   ? `${import.meta.env.BASE_URL}api/serve-audio/${encodeURIComponent(work.data.workNumber)}`
-  : null;
-const pdfPath = work.data.pdf
-  ? work.data.pdf.replace("./", "../../works/") + "?url"
   : null;
 ---
 
