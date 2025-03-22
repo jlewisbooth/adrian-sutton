@@ -43,6 +43,7 @@ export const collections = {
             "production-stills",
           ]),
         ),
+        attribution: z.optional(z.string()),
       }),
   }),
   recordings: defineCollection({

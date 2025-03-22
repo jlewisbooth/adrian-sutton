@@ -3,11 +3,12 @@ import BaseLayout from "../layouts/base.astro";
 import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
 import MenuListItem from "../components/menu-list-item.astro";
-
 import BirdOne from "../images/bird-1.png";
 import BirdTwo from "../images/bird-2.png";
 import BirdThree from "../images/bird-3.png";
 import MediaImageCard from "../components/media-image-card.astro";
+import Modal from "../components/modal.astro";
+
 const media = await getCollection("media");
 
 // Define filter categories
@@ -68,6 +69,7 @@ const filterCategories = [
       </div>
     </div>
   </div>
+  <Modal id="image-modal" imageSrc="" imageAlt="" />
 </BaseLayout>
 <script>
   // Client-side filtering
@@ -135,7 +137,6 @@ const filterCategories = [
         const imageSrc = button.getAttribute("data-image-src");
         const imageName = button.getAttribute("data-image-name");
 
-        console.log(imageSrc, imageName);
         if (imageSrc) {
           // Create a temporary anchor element to trigger the download
           const downloadLink = document.createElement("a");
@@ -155,4 +156,74 @@ const filterCategories = [
     setupDownloadListeners();
     filterWorks("all"); // Start with "all" filter
   });
+
+  const mediaItems = document.querySelectorAll(".media-item");
+
+  mediaItems.forEach((item) => {
+    item.addEventListener("click", (e) => {
+      e.stopPropagation();
+      openModal(item);
+    });
+  });
+
+  function openModal(element: Element) {
+    const img = element.querySelector("img");
+    if (!img) return;
+
+    const modalTitleCard = element.querySelector("#modal-title");
+    if (!modalTitleCard) return;
+
+    const modal = document.getElementById("image-modal");
+    if (!modal) return;
+
+    const modalImg = modal.querySelector("img");
+    if (!modalImg) return;
+
+    const modalTitle = modal.querySelector("#modal-title");
+    if (!modalTitle) return;
+
+    const modalDownloadBtn = modal.querySelector(".download-btn");
+    if (!modalDownloadBtn) return;
+
+    const downloadBtn = element.querySelector(".download-btn");
+    if (!downloadBtn) return;
+
+    const attribution = element.querySelector("#modal-attribution");
+
+    if (attribution) {
+      const attributionContainer = modal.querySelector(
+        "#modal-attribution-container",
+      );
+
+      if (attributionContainer) {
+        attributionContainer.classList.add("opacity-100");
+        attributionContainer.classList.remove("opacity-0");
+
+        const modalAttribution = modal.querySelector("#modal-attribution");
+        if (modalAttribution) {
+          modalAttribution.textContent = attribution.textContent;
+        }
+      }
+    }
+
+    modalTitle.textContent = modalTitleCard.textContent;
+
+    modalImg.src = img.src;
+    modalImg.alt = img.alt;
+
+    const downloadBtnElement = downloadBtn as HTMLButtonElement;
+    const modalDownloadBtnElement = modalDownloadBtn as HTMLButtonElement;
+
+    modalDownloadBtnElement.dataset.imageSrc =
+      downloadBtnElement.dataset.imageSrc;
+    modalDownloadBtnElement.dataset.imageName =
+      downloadBtnElement.dataset.imageName;
+
+    modal.classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+
+    modalImg.addEventListener("load", () => {
+      modal.classList.add("opacity-100");
+    });
+  }
 </script>
