@@ -39,19 +39,8 @@ const { recording } = Astro.props;
       <Image
         src={recording.data.cover || FallbackCover}
         alt={recording.data.title}
-        class="w-[250px] h-[250px] object-cover rounded-lg drop-shadow-md"
+        class="xs:w-[180px] xs:h-[180px] sm:w-[200px] sm:h-[200px] md:w-[220px] md:h-[220px] lg:w-[250px] lg:h-[250px] object-cover rounded-lg drop-shadow-md"
       />
-      <!--
-      <div
-        class="gradient bg-black flex flex-col justify-end p-3 rounded-lg w-[280px] drop-shadow-md gap-1"
-      >
-        <h2 class="text-white text-xl font-bold">
-          {recording.data.title}
-        </h2>
-        <p class="text-white text-xs">
-          {recording.data.description}
-        </p> -->
-      </div>
     </div>
   </div>
 </a>

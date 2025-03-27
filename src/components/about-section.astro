@@ -27,14 +27,14 @@ import AppleLogo from "../images/apple-logo.png";
 <div
   class="min-h-lvh gradient drop-shadow-2xl relative z-0 ring-1 ring-contrastDark/60 border-t-2 border-contrastDark/60 border-dotted"
 >
-  <div class="h-lvh flex items-end absolute pb-10">
+  <div class="h-full flex items-end absolute pb-10 z-0 md:block hidden">
     <svg
       width="666"
       height="370"
       viewBox="0 0 656 370"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      class="opacity-70"
+      class="opacity-40"
     >
       <g>
         <path
@@ -398,12 +398,16 @@ import AppleLogo from "../images/apple-logo.png";
       </g>
     </svg>
   </div>
-  <div class="w-full flex flex-row gap-10 justify-center p-10">
-    <div class="w-1/2 max-w-sm relative flex flex-col gap-4">
+  <div
+    class="w-full flex flex-col md:flex-row gap-10 justify-center p-10 pb-20 z-10 relative"
+  >
+    <div
+      class="w-full md:w-1/3 md:max-w-sm items-center relative flex flex-col gap-4"
+    >
       <Image
         src={AboutSectionImage}
         alt=""
-        class="object-cover drop-shadow-2xl"
+        class="object-cover drop-shadow-2xl max-w-64 md:max-w-sm w-full"
       />
       <div class="bg-black/50 rounded-xl p-[1px] drop-shadow-md">
         <div class="flex flex-col gap-2 rounded-xl p-4 border border-white/20">
