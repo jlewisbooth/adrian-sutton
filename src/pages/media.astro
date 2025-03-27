@@ -8,7 +8,7 @@ import BirdTwo from "../images/bird-2.png";
 import BirdThree from "../images/bird-3.png";
 import MediaImageCard from "../components/media-image-card.astro";
 import Modal from "../components/modal.astro";
-
+import FilterIcon from "../components/filter-icon.astro";
 const media = await getCollection("media");
 
 // Define filter categories
@@ -43,34 +43,63 @@ const filterCategories = [
       );
   }
 </style>
-<BaseLayout staticHeader={true}>
-  <div
-    class="gradient w-full pt-24 flex flex-row gap-2 flex-grow px-4 pb-4 min-h-lvh relative items-start"
-  >
+<div>
+  <BaseLayout staticHeader={true}>
     <div
-      class="w-[300px] flex flex-col gap-3 bg-white/50 rounded-lg sticky top-24 p-2 drop-shadow-2xl"
+      class="gradient w-full pt-[5.4rem] flex flex-row gap-2 flex-grow px-4 pb-4 min-h-lvh relative items-start"
     >
-      {
-        filterCategories.map((category) => (
-          <MenuListItem title={category.title} filter={category.filter} />
-        ))
-      }
       <div
-        class="flex flex-col gap-2 w-full justify-center items-center opacity-50 pt-10"
+        class="w-[300px] flex-col gap-3 bg-white/50 rounded-lg sticky top-[5.4rem] p-2 drop-shadow-2xl hidden md:flex"
       >
-        <Image src={BirdOne} alt="Bird 1" class="w-32 h-32 object-contain" />
-        <Image src={BirdTwo} alt="Bird 2" class="w-24 h-24 object-contain" />
-        <Image src={BirdThree} alt="Bird 3" class="w-20 h-20 object-contain" />
+        {
+          filterCategories.map((category) => (
+            <MenuListItem title={category.title} filter={category.filter} />
+          ))
+        }
+        <div
+          class="flex flex-col gap-2 w-full justify-center items-center opacity-50 pt-10"
+        >
+          <Image src={BirdOne} alt="Bird 1" class="w-32 h-32 object-contain" />
+          <Image src={BirdTwo} alt="Bird 2" class="w-24 h-24 object-contain" />
+          <Image
+            src={BirdThree}
+            alt="Bird 3"
+            class="w-20 h-20 object-contain"
+          />
+        </div>
+      </div>
+      <div class="w-full px-4 pb-4 flex flex-col gap-4">
+        <div
+          class="w-full sticky top-[5.4rem] z-10 flex flex-row gap-3 justify-end"
+        >
+          <div class="dropdown dropdown-end md:hidden">
+            <div tabindex={0} role="button" class="btn btn-sm px-3 py-1">
+              <FilterIcon />
+            </div>
+            <ul
+              tabindex={0}
+              id="filter-dropdown"
+              class="dropdown-content menu bg-base-100 rounded-md z-1 w-52 p-2 shadow-lg mt-2"
+            >
+              {
+                filterCategories.map((category) => (
+                  <MenuListItem
+                    title={category.title}
+                    filter={category.filter}
+                  />
+                ))
+              }
+            </ul>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+          {media.map((item) => <MediaImageCard mediaItem={item} />)}
+        </div>
       </div>
     </div>
-    <div class="w-full px-4 pb-4">
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-        {media.map((item) => <MediaImageCard mediaItem={item} />)}
-      </div>
-    </div>
-  </div>
+  </BaseLayout>
   <Modal id="image-modal" imageSrc="" imageAlt="" />
-</BaseLayout>
+</div>
 <script>
   // Client-side filtering
   let currentFilter = "all";
@@ -122,6 +151,12 @@ const filterCategories = [
             "search-input",
           ) as HTMLInputElement;
           filterWorks(filter);
+
+          // Close the dropdown by removing focus
+          const dropdown = document.getElementById("filter-dropdown");
+          if (dropdown) {
+            dropdown.blur();
+          }
         }
       });
     });

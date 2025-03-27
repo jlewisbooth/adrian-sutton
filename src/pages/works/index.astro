@@ -5,6 +5,7 @@ import WorkListItem from "../../components/work-list-item.astro";
 import MenuListItem from "../../components/menu-list-item.astro";
 import AudioPlayer from "../../components/audio-player.astro";
 import { Image } from "astro:assets";
+import FilterIcon from "../../components/filter-icon.astro";
 
 import BirdOne from "../../images/bird-1.png";
 import BirdTwo from "../../images/bird-2.png";
@@ -58,7 +59,7 @@ const filterCategories = [
     class="gradient w-full pt-24 flex flex-row gap-2 flex-grow px-4 pb-4 min-h-lvh relative items-start"
   >
     <div
-      class="w-[230px] 2xl:w-[250px] min-w-[230px] 2xl:min-w-[250px] flex flex-col gap-3 bg-white/50 rounded-lg sticky top-24 p-2 drop-shadow-2xl"
+      class="w-[230px] 2xl:w-[250px] min-w-[230px] 2xl:min-w-[250px] flex-col gap-3 bg-white/50 rounded-lg sticky top-24 p-2 drop-shadow-2xl hidden md:flex"
     >
       {
         filterCategories.map((category) => (
@@ -74,8 +75,10 @@ const filterCategories = [
       </div>
     </div>
     <div class="flex flex-col gap-4 flex-grow pl-2">
-      <div class="join w-full sticky top-24 z-10">
-        <div class="input join-item flex items-center w-full drop-shadow-lg">
+      <div class="join w-full sticky top-24 z-10 flex flex-row gap-3">
+        <div
+          class="input input-sm md:input-md flex items-center flex-grow drop-shadow-lg"
+        >
           <svg
             class="h-[1em] opacity-50 mr-2"
             xmlns="http://www.w3.org/2000/svg"
@@ -96,6 +99,22 @@ const filterCategories = [
             placeholder="Search"
             id="search-input"
           />
+        </div>
+        <div class="dropdown dropdown-end md:hidden">
+          <div tabindex={0} role="button" class="btn btn-sm px-3 py-1">
+            <FilterIcon />
+          </div>
+          <ul
+            tabindex={0}
+            id="filter-dropdown"
+            class="dropdown-content menu bg-base-100 rounded-md z-1 w-52 p-2 shadow-lg mt-2"
+          >
+            {
+              filterCategories.map((category) => (
+                <MenuListItem title={category.title} filter={category.filter} />
+              ))
+            }
+          </ul>
         </div>
       </div>
       <div class="grid grid-cols-1 lg:grid-cols-2 3xl:grid-cols-3 gap-3">
@@ -192,6 +211,12 @@ const filterCategories = [
             "search-input",
           ) as HTMLInputElement;
           filterWorks(filter, searchInput?.value || "");
+
+          // Close the dropdown by removing focus
+          const dropdown = document.getElementById("filter-dropdown");
+          if (dropdown) {
+            dropdown.blur();
+          }
         }
       });
     });
