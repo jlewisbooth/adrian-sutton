@@ -21,18 +21,14 @@ const audioPath = work.data.audio
           {`${work.data.title} (${work.data.compositionYear})`}
         </h2>
         <div class="flex flex-row gap-2">
-          {
-            work.data.length && (
-              <p class="text-xs md:text-sm font-bold text-nowrap">
-                ({work.data.length})
-              </p>
-            )
-          }
-          {
-            work.data.forces && (
-              <p class="text-xs md:text-sm">{work.data.forces}</p>
-            )
-          }
+          <p class="text-xs md:text-sm">
+            {
+              work.data.length && (
+                <span class="font-bold">({work.data.length}) ·</span>
+              )
+            }
+            {work.data.forces && <span>{work.data.forces}</span>}
+          </p>
         </div>
       </div>
       <div class="flex-grow">
