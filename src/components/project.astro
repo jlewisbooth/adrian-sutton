@@ -11,7 +11,7 @@ const { title, cover, compiledContent, arrange } = Astro.props;
 >
   {
     arrange === "left" && (
-      <div class="max-w-md flex-grow w-1/2 min-w-[300px]">
+      <div class="max-w-md flex-grow w-1/2 min-w-[250px]">
         <Image src={cover} alt="" />
       </div>
     )
@@ -24,7 +24,7 @@ const { title, cover, compiledContent, arrange } = Astro.props;
   </div>
   {
     arrange === "right" && (
-      <div class="max-w-lg flex-grow w-1/2 min-w-[300px]">
+      <div class="max-w-lg flex-grow w-1/2 min-w-[250px]">
         <Image src={cover} alt="" />
       </div>
     )
