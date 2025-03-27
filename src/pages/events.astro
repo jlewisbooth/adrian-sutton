@@ -3,6 +3,7 @@ import EventListItem from "../components/event-list-item.astro";
 import BaseLayout from "../layouts/base.astro";
 import { getCollection } from "astro:content";
 import EmptyList from "../components/empty-list.astro";
+import CalendarIcon from "../images/icons/calendar-note.svg";
 
 const events = await getCollection("events");
 
@@ -77,7 +78,7 @@ const pastEvents = events.filter((event) => event.data.date < new Date());
             <EmptyList
               title="Nothing coming up!"
               description="There are no upcoming events right now."
-              icon="/public/icons/calendar-note.svg"
+              icon={CalendarIcon}
             />
           )
         }

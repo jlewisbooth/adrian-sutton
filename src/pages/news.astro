@@ -3,6 +3,7 @@ import NewsListItem from "../components/news-list-item.astro";
 import EmptyList from "../components/empty-list.astro";
 import BaseLayout from "../layouts/base.astro";
 import { getCollection } from "astro:content";
+import NewsIcon from "../images/icons/newspaper-news.svg";
 
 const news = await getCollection("news");
 
@@ -86,7 +87,7 @@ const allNews = news.filter((newsArticle) => {
             <EmptyList
               title="Watch this space!"
               description="There has been no news in the last three months."
-              icon="/public/icons/newspaper-news.svg"
+              icon={NewsIcon}
             />
           )
         }
