@@ -5,7 +5,7 @@ cover: "Chandos orchestral works.jpg"
 audioUrl: "https://embed.music.apple.com/us/album/adrian-sutton-orchestral-works/1766897662"
 sectionSortOrder: 1
 metadata:
-  - { title: "Label", description: "UNKNOWN" }
+  - { title: "Label", description: "CHANDOS" }
   - { title: "Release Date", description: "19/08/2025" }
   - { title: "Producer", description: "Adrian Sutton" }
 ---
