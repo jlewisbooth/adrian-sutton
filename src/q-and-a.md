@@ -1,22 +1,18 @@
 ---
 ---
 
-### What is Adrian's middle name?
+### How would you describe your musical style?
 
-I'm not entirely sure, but message to find out!
+An English sound at heart.. tonal, accessible.. but with a few "wrong" notes!
 
-### What is Adrian's favourite colour?
+### Who would you list as your biggest influences?
 
-Orange, of course.
+Many.. but I guess mainly Walton, Britten, Vaughan Williams, Finzi, Tippett, Copland, Honegger..
 
-### What is Adrian's favourite colour?
+### Do you play any instruments?
 
-Orange, of course.
+I'm a violinist
 
-### What is Adrian's favourite colour?
+### Of which of your works are you the proudest?
 
-Orange, of course.
-
-### What is Adrian's favourite colour?
-
-Orange, of course.
+Violin Concerto, A Fist Full Of Fives, Short Story.. and of course War Horse.
