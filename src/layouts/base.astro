@@ -8,7 +8,9 @@ import "../styles/global.css";
 
 const { staticHeader } = Astro.props;
 
-const baseUrl = import.meta.env.BASE_URL;
+import "../fonts/HalisGRRegular.woff";
+import "../fonts/HalisGRBold.woff";
+import "../fonts/HalisGRLight.woff";
 ---
 
 <html lang="en" data-theme="custom" class="bg-contrastDark">
@@ -50,10 +52,10 @@ const baseUrl = import.meta.env.BASE_URL;
     </div>
   </body>
 </html>
-<style define:vars={{ baseUrl: import.meta.env.BASE_URL }}>
+<style>
   @font-face {
     font-family: "HalisGR";
-    src: url("/adrian-sutton/public/fonts/HalisGRRegular.woff") format("woff");
+    src: url("fonts/HalisGRRegular.woff") format("woff");
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -61,7 +63,7 @@ const baseUrl = import.meta.env.BASE_URL;
 
   @font-face {
     font-family: "HalisGR";
-    src: url("/adrian-sutton/public/fonts/HalisGRBold.woff") format("woff");
+    src: url("fonts/HalisGRBold.woff") format("woff");
     font-weight: bold;
     font-style: normal;
     font-display: swap;
@@ -69,7 +71,7 @@ const baseUrl = import.meta.env.BASE_URL;
 
   @font-face {
     font-family: "HalisGR";
-    src: url("/adrian-sutton/public/fonts/HalisGRLight.woff") format("woff");
+    src: url("fonts/HalisGRLight.woff") format("woff");
     font-weight: lighter;
     font-style: normal;
     font-display: swap;
