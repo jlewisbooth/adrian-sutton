@@ -1,8 +1,8 @@
 ---
 import BaseLayout from "../layouts/base.astro";
 import { Image } from "astro:assets";
-import AboutBackgroundImage from "../images/about-background.png";
-import AboutSectionImage from "../images/about-section-potrait.png";
+import AboutBackgroundImage from "../images/about-background.webp";
+import AboutSectionImage from "../images/about-section-potrait.webp";
 import IconLink from "../components/icon-link.astro";
 import { Content as QandA } from "../q-and-a.md";
 import AboutPageMasonry from "../components/about-page-masonry.astro";
@@ -26,6 +26,7 @@ import AppleLogo from "../images/apple-logo.png";
       src={AboutBackgroundImage}
       alt=""
       class="object-cover w-full h-full opacity-50"
+      loading="eager"
     />
   </div>
   <div class="w-full z-10 relative mt-24">
@@ -49,6 +50,7 @@ import AppleLogo from "../images/apple-logo.png";
             <Image
               src={AboutSectionImage}
               alt=""
+              loading="eager"
               class="object-cover drop-shadow-2xl -mt-28"
             />
           </div>

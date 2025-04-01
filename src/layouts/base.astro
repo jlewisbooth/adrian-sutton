@@ -7,6 +7,8 @@ import { Image } from "astro:assets";
 import "../styles/global.css";
 
 const { staticHeader } = Astro.props;
+
+const baseUrl = import.meta.env.BASE_URL;
 ---
 
 <html lang="en" data-theme="custom" class="bg-contrastDark">
@@ -29,6 +31,7 @@ const { staticHeader } = Astro.props;
       <Image
         src={FallbackBanner}
         alt={""}
+        loading="eager"
         class="w-full h-full object-cover opacity-40"
       />
     </div>
@@ -41,8 +44,34 @@ const { staticHeader } = Astro.props;
       <Image
         src={FallbackBanner}
         alt={""}
+        loading="eager"
         class="w-full h-full object-cover opacity-40"
       />
     </div>
   </body>
 </html>
+<style>
+  @font-face {
+    font-family: "HalisGR";
+    src: url("fonts/HalisGRRegular.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "HalisGR";
+    src: url("fonts/HalisGRBold.woff") format("woff");
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "HalisGR";
+    src: url("fonts/HalisGRLight.woff") format("woff");
+    font-weight: lighter;
+    font-style: normal;
+    font-display: swap;
+  }
+</style>
