@@ -27,8 +27,6 @@ export async function GET(context: { params: { recordingUrl: string } }) {
     `${recordingUrl}.mp3`,
   );
 
-  console.log("filePath", filePath);
-
   try {
     const fileBuffer = await readFile(filePath);
 

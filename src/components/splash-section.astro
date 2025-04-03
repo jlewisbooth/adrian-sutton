@@ -3,7 +3,6 @@ import { Image } from "astro:assets";
 import ViolinConcertoImage from "../images/violin-concerto.jpg";
 import Rating from "fulldev-ui/components/Rating.astro";
 
-const date = "23 April 2025";
 const title = "VIOLIN CONCERTO";
 ---
 
@@ -43,7 +42,19 @@ const title = "VIOLIN CONCERTO";
   }
 
   .perspective {
-    transform: perspective(200px) rotate3d(1, -1, 0, 2deg);
+    transform: rotate(0deg);
+
+    /* Check for 3D transform support */
+    @supports (transform: perspective(1px)) {
+      -webkit-transform: perspective(200px) rotate3d(1, -1, 0, 2deg);
+      -moz-transform: perspective(200px) rotate3d(1, -1, 0, 2deg);
+      -ms-transform: perspective(200px) rotate3d(1, -1, 0, 2deg);
+      transform: perspective(200px) rotate3d(1, -1, 0, 2deg);
+
+      /* Hardware acceleration */
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
   }
 </style>
 <div
