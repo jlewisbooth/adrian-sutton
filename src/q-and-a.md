@@ -5,9 +5,9 @@
 
 An English sound at heart.. tonal, accessible.. but with a few "wrong" notes!
 
-### Who would you list as your biggest influences?
+### Who would you list as your influences?
 
-Many.. but I guess mainly Walton, Britten, Vaughan Williams, Finzi, Tippett, Copland, Honegger..
+Many.. but among them: Walton, Britten, Vaughan Williams, Finzi, Tippett, Copland, Honegger..
 
 ### Do you play any instruments?
 
