@@ -82,6 +82,7 @@ export const collections = {
         hire: z.optional(z.boolean()),
         audio: z.any(),
         pdf: z.any(),
+        buyPDF: z.optional(z.string()),
         bannerImage: z.optional(image()),
         titleImage: z.optional(image()),
         recording: z.optional(z.string()),
